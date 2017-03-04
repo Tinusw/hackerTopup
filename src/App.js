@@ -23,6 +23,20 @@ const list = [
 const isSearched = (searchTerm) => (item) =>
   !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
+// Declaring my CSS column Widths - should probably be moved to a seperate file eventually.
+const largeColumn = {
+  width: '40%',
+};
+
+const midColumn = {
+  width: '30%',
+};
+
+const smallColumn = {
+  width: '10%',
+};
+
+
 class App extends Component {
 
   constructor(props) {
@@ -106,19 +120,5 @@ const Button = ({ onClick, className, children}) =>
   >
     {children}
   </button>
-
-// Declaring my CSS column Widths - should probably be moved to a seperate file eventually.
-const largeColumn = {
-  width: '40%',
-};
-
-const midColumn = {
-  width: '30%',
-};
-
-const smallColumn = {
-  width: '10%',
-};
-
 
 export default App;
