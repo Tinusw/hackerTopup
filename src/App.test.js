@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer'
+import { shallow } from 'enzyme';
 import App, { Search, Button, Table } from './App';
 
 describe('App', () => {
@@ -66,10 +67,17 @@ describe('Table', () => {
 
   test('snapshots', () => {
     const component = renderer.create(
-      <Table { ... props } />
+      <Table { ...props } />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('shows two items in the list', () => {
+    const element = shallow(
+      <Table {...props } />
+    );
+    expect(element.find('.table-row').length).toBe(2);
   });
 
 });
