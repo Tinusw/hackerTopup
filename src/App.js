@@ -37,11 +37,17 @@ class App extends Component {
       searchTerm: DEFAULT_QUERY,
     };
 
+    this.needsToSearchTopstories = this.needsToSearchTopstories.bind(this);
     this.setSearchTopstories = this.setSearchTopstories.bind(this);
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
+  }
+
+  // We check the cache too see if it contains results for the search term
+  needsToSearchTopstories(searchTerm) {
+    return !this.state.results[searchTerm]
   }
 
   setSearchTopstories(result) {
@@ -86,6 +92,12 @@ class App extends Component {
     this.setState({ searchKey: searchTerm });
     this.fetchSearchTopStories(searchTerm, DEFAULT_PAGE);
     event.preventDefault();
+
+    // If we have a cached result for the search term
+    // if yes, we prevent further API requests
+    if (this.needsToSearchTopstories(searchTerm)) {
+      this.fetchSearchTopStories(searchTerm, DEFAULT_PAGE);
+    }
   }
 
   onDismiss(id) {
