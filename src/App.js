@@ -26,7 +26,7 @@ const smallColumn = {
 };
 
 const Loading = () =>
-  <div> Loading...</div>
+  <div>Loading...</div>
 
 
 class App extends Component {
@@ -214,4 +214,5 @@ export {
   Button,
   Search,
   Table,
+  Loading,
 };
