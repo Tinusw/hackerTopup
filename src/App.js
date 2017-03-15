@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { sortBy } from 'lodash';
 
 const DEFAULT_QUERY = 'redux';
 const DEFAULT_PAGE = 0;
