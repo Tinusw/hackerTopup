@@ -194,9 +194,47 @@ const Search = ({ value, onChange, onSubmit, children }) =>
     </button>
   </form>
 
-const Table = ({ list, pattern, onDismiss }) =>
+const Table = ({ list, sortKey, onSort, onDismiss }) =>
   <div className="table">
-    { list.map(item =>
+    <div className="table-header">
+      <span style={{ width: '40%' }}>
+        <Sort 
+          sortKey={'TITLE'}
+          onSort={onSort}
+        >
+          TITLE
+        </Sort>
+      </span>
+      <span style={{ width: '30%' }}>
+        <Sort 
+          sortKey={'AUTHOR'}
+          onSort={onSort}
+        >
+          AUTHOR
+        </Sort>
+      </span>
+      <span style={{ width: '10%' }}>
+        <Sort 
+          sortKey={'COMMENTS'}
+          onSort={onSort}
+        >
+          COMMENTS
+        </Sort>
+      </span>
+      <span style={{ width: '10%' }}>
+        <Sort 
+          sortKey={'POINTS'}
+          onSort={onSort}
+        >
+          POINTS
+        </Sort>
+      </span>
+      <span style={{ width: '10%'}}>
+        ARCHIVE
+      </span>
+    </div>
+
+    { SORTS[sortKey](list).map(item =>
       <div key={item.objectID} className="table-row">
         <span style={largeColumn}>
           <a href={item.url}>{item.title}</a>
@@ -222,6 +260,12 @@ const Button = ({ onClick, className = '', children}) =>
     {children}
   </button>
 
+const Sort = ({ sortKey, onSort, children }) =>
+  <Button
+    onClick={() => onSort(sortKey)}>
+      {children}
+  </Button>
+  
 const Loading = () =>
   <div>Loading...</div>
 
