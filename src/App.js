@@ -25,10 +25,6 @@ const smallColumn = {
   width: '10%',
 };
 
-const Loading = () =>
-  <div>Loading...</div>
-
-
 class App extends Component {
 
   constructor(props) {
@@ -157,11 +153,11 @@ class App extends Component {
             onDismiss={this.onDismiss}
           />
         <div className="interactions">
-          { isLoading ? <Loading />
-            : <Button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+          <ButtonWithLoading
+            isLoading={isLoading}
+            onClick={() => this.fetchSearchTopStories(searchKey, page +1)}>
               More
-            </Button>
-          }
+          </ButtonWithLoading>
         </div>
       </div>
     );
@@ -199,7 +195,7 @@ const Table = ({ list, pattern, onDismiss }) =>
     )}
   </div>
 
-const Button = ({ onClick, className, children}) =>
+const Button = ({ onClick, className = '', children}) =>
   <button
     onClick={onClick}
     className={className}
@@ -207,6 +203,15 @@ const Button = ({ onClick, className, children}) =>
   >
     {children}
   </button>
+
+const Loading = () =>
+  <div>Loading...</div>
+
+const withLoading = (Component) => ({ isLoading, ...rest}) =>
+  isLoading ? <Loading /> : <Component { ...rest } />
+
+const ButtonWithLoading = withLoading(Button);
+
 
 export default App;
 
