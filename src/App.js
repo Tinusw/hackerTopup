@@ -139,8 +139,6 @@ class App extends Component {
       results, 
       searchKey,
       isLoading,
-      sortKey,
-      isSortReverse
     } = this.state;
 
     const page = (
@@ -168,9 +166,6 @@ class App extends Component {
         </div>
           <Table
             list={list}
-            sortKey={sortKey}
-            isSortReverse={isSortReverse}
-            onSort={this.onSort}
             onDismiss={this.onDismiss}
           />
         <div className="interactions">
