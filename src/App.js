@@ -52,18 +52,13 @@ class App extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
-    this.onSort = this.onSort.bind(this);
     this.needsToSearchTopstories = this.needsToSearchTopstories.bind(this);
   }
 
-  onSort(sortKey) {
-    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
-    this.setState({ sortKey, isSortReverse });
-  }
-
-  // We check the cache too see if it contains results for the search term
-  needsToSearchTopstories(searchTerm) {
-    return !this.state.results[searchTerm]
+  componentDidMount() {
+    const { searchTerm } = this.state;
+    this.setState({ searchKey: searchTerm });
+    this.fetchSearchTopStories(searchTerm, DEFAULT_PAGE);
   }
 
   setSearchTopstories(result) {
@@ -88,17 +83,16 @@ class App extends Component {
     });
   }
 
-  componentDidMount() {
-    const { searchTerm } = this.state;
-    this.setState({ searchKey: searchTerm });
-    this.fetchSearchTopStories(searchTerm, DEFAULT_PAGE);
-  }
-
   fetchSearchTopStories(searchTerm, page) {
     this.setState({ isLoading: true });
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(response => response.json())
       .then(result => this.setSearchTopstories(result));
+  }
+
+  // We check the cache too see if it contains results for the search term
+  needsToSearchTopstories(searchTerm) {
+    return !this.state.results[searchTerm]
   }
 
   onSearchChange(event) {
