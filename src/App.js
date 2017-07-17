@@ -117,15 +117,15 @@ class App extends Component {
   }
 
   render() {
-    const { 
-      searchTerm, 
-      results, 
+    const {
+      searchTerm,
+      results,
       searchKey,
       isLoading,
     } = this.state;
 
     const page = (
-      results && 
+      results &&
       results[searchKey] &&
       results[searchKey].page
     ) || 0;
@@ -163,12 +163,12 @@ class App extends Component {
   }
 }
 
-const Search = ({ 
-  value, 
-  onChange, 
-  onSubmit, 
+const Search = ({
+  value,
+  onChange,
+  onSubmit,
   children
-}) => 
+}) =>
   <form onSubmit={onSubmit}>
     <input
       type="text"
